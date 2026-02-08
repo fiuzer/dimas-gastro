@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 // Gera os parâmetros estáticos para todas as postagens (SSG)
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const slugs = postSlugs();
   return slugs.map((slug) => ({ slug }));
 }
@@ -12,6 +12,7 @@ export async function generateStaticParams() {
 // Define o tipo das props, onde params é uma Promise (Next.js 15)
 type Props = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 // Gera os metadados da página (SEO)
