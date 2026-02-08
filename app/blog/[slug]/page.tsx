@@ -1,94 +1,94 @@
-import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
 import { getPost, postSlugs } from '@/lib/posts';
-import { siteConfig } from '@/lib/site';
+import { Metadata } from 'next';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
+// Gera os parâmetros estáticos para todas as postagens (SSG)
 export async function generateStaticParams() {
-  return postSlugs().map((slug) => ({ slug }));
+  const slugs = postSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const post = getPost(params.slug);
+// Define o tipo das props, onde params é uma Promise (Next.js 15)
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+// Gera os metadados da página (SEO)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPost(slug);
 
   if (!post) {
     return {
-      title: 'Artigo não encontrado'
+      title: 'Post não encontrado',
     };
   }
 
   return {
     title: post.title,
     description: post.description,
-    keywords: post.keywords,
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `${siteConfig.url}/blog/${post.slug}`,
-      images: [post.cover]
-    }
+      images: [post.cover],
+    },
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPost(params.slug);
+// Componente da página do post
+export default async function BlogPostPage({ params }: Props) {
+  const { slug } = await params;
+  const post = getPost(slug);
 
   if (!post) {
-    return (
-      <div className="section-pad mx-auto max-w-3xl text-center">
-        <h1 className="font-heading text-3xl text-bone">Artigo não encontrado</h1>
-        <Link
-          href="/blog"
-          className="mt-6 inline-flex rounded-full border border-white/20 px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-bone"
-        >
-          Voltar ao blog
-        </Link>
-      </div>
-    );
+    notFound();
   }
 
   return (
-    <article className="section-pad mx-auto max-w-3xl space-y-8">
-      <header className="space-y-4">
-        <p className="text-xs uppercase tracking-[0.3em] text-copper/80">Artigo estratégico</p>
-        <h1 className="font-heading text-4xl text-bone">{post.title}</h1>
-        <p className="text-sm text-white/70">{post.description}</p>
-        <div className="flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/50">
-          <span>{new Date(post.date).toLocaleDateString('pt-BR')}</span>
-          <span>{post.readTime} leitura</span>
+    <div className="min-h-screen pt-32 pb-20">
+      <div className="mx-auto max-w-3xl px-6">
+        {/* Cabeçalho do Post */}
+        <div className="mb-10 space-y-6 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-copper">
+            {post.readTime} de leitura
+          </div>
+          <h1 className="font-heading text-3xl text-bone md:text-5xl">{post.title}</h1>
+          <p className="text-lg text-white/60">{post.description}</p>
         </div>
-        <div className="overflow-hidden rounded-2xl border border-white/10">
-          <Image src={post.cover} alt={post.title} width={960} height={520} className="w-full" />
+
+        {/* Imagem de Capa */}
+        <div className="relative mb-12 aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+          <Image
+            src={post.cover}
+            alt={post.title}
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
-      </header>
 
-      <div className="space-y-6">
-        {post.sections.map((section) => (
-          <section key={section.heading} className="space-y-3">
-            <h2 className="font-heading text-2xl text-bone">{section.heading}</h2>
-            <p className="text-sm text-white/70 md:text-base">{section.body}</p>
-          </section>
-        ))}
-      </div>
+        {/* Conteúdo do Post */}
+        <div className="space-y-10">
+          {post.sections.map((section, index) => (
+            <div key={index} className="space-y-4">
+              <h2 className="font-heading text-2xl text-bone">{section.heading}</h2>
+              <p className="text-white/80 leading-relaxed">{section.body}</p>
+            </div>
+          ))}
+        </div>
 
-      <div className="glass rounded-2xl p-6 text-center">
-        <h3 className="font-heading text-2xl text-bone">
-          Quer aplicar essas estratégias no seu negócio?
-        </h3>
-        <p className="mt-3 text-sm text-white/70">
-          Agende uma consultoria e receba um plano personalizado para elevar margem e experiência do cliente.
-        </p>
-        <Link
-          href="/contato"
-          className="mt-5 inline-flex rounded-full bg-copper px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-graphite"
-        >
-          Agendar consultoria
-        </Link>
+        {/* Rodapé do Post (Keywords) */}
+        <div className="mt-12 border-t border-white/10 pt-8">
+          <div className="flex flex-wrap gap-2">
+            {post.keywords.map((keyword) => (
+              <span key={keyword} className="text-xs text-white/40 uppercase tracking-wider">
+                #{keyword}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
-    </article>
+    </div>
   );
 }
