@@ -1,10 +1,10 @@
 # Dimas Consultoria Gastronômica
 
-Website institucional desenvolvido para a **Dimas Consultoria Gastronômica**, focado em apresentar serviços de consultoria estratégica para restaurantes, bares e hotéis. O projeto utiliza **Next.js 14 (App Router)**, **TypeScript** e **Tailwind CSS** para garantir alta performance, SEO otimizado e uma experiência de usuário premium.
+Website institucional desenvolvido para a **Dimas Consultoria Gastronômica**, focado em apresentar serviços de consultoria estratégica para restaurantes, bares e hotéis. O projeto utiliza **Next.js 16 (App Router)**, **TypeScript** e **Tailwind CSS** para garantir alta performance, SEO otimizado e uma experiência de usuário premium.
 
 ## 🚀 Tecnologias Utilizadas
 
-- **[Next.js 14](https://nextjs.org/)**: Framework React para produção, utilizando App Router e Server Components.
+- **[Next.js 16](https://nextjs.org/)**: Framework React para produção, utilizando App Router e Server Components.
 - **[TypeScript](https://www.typescriptlang.org/)**: Tipagem estática para maior segurança e manutenibilidade.
 - **[Tailwind CSS](https://tailwindcss.com/)**: Framework de utilitários CSS para estilização rápida e consistente.
 - **Ícones SVG**: Sistema de ícones otimizado e leve (`components/Icon.tsx`).
