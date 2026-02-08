@@ -9,7 +9,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   return slugs.map((slug) => ({ slug }));
 }
 
-// Define o tipo das props, onde params é uma Promise (Next.js 15+)
+// Define o tipo das props, onde params é uma Promise (Next.js 16)
 type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
