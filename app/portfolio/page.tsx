@@ -1,0 +1,52 @@
+import Image from 'next/image';
+import type { Metadata } from 'next';
+import { SectionHeading } from '@/components/SectionHeading';
+import { cases } from '@/lib/cases';
+
+export const metadata: Metadata = {
+  title: 'Portfólio e casos de sucesso',
+  description:
+    'Resultados reais em consultoria gastronômica: antes e depois, desafios e impacto operacional.'
+};
+
+export default function PortfolioPage() {
+  return (
+    <div>
+      <section className="section-pad mx-auto max-w-6xl">
+        <SectionHeading
+          level="h1"
+          eyebrow="Portfólio"
+          title="Casos de sucesso com resultados mensuráveis"
+          description="Projetos entregues com foco em performance, padronização e experiência premium."
+        />
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          {cases.map((item) => (
+            <article key={item.title} className="glass flex flex-col rounded-2xl overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={480}
+                height={320}
+                className="h-52 w-full object-cover"
+              />
+              <div className="flex h-full flex-col gap-4 p-6">
+                <h3 className="font-heading text-xl text-bone">{item.title}</h3>
+                <p className="text-xs uppercase tracking-[0.3em] text-white/50">Antes e depois</p>
+                <p className="text-sm text-white/70">
+                  <span className="text-xs uppercase tracking-[0.2em] text-copper/70">Desafio</span>
+                  <br />
+                  {item.challenge}
+                </p>
+                <p className="text-sm text-white/70">
+                  <span className="text-xs uppercase tracking-[0.2em] text-copper/70">Resultado</span>
+                  <br />
+                  {item.result}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
