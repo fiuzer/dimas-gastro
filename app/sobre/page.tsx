@@ -21,6 +21,7 @@ export default function SobrePage() {
               alt="Profissional cozinhando em cozinha profissional"
               width={520}
               height={640}
+              sizes="(min-width: 768px) 40vw, 100vw"
               className="h-full w-full object-cover"
               priority
             />

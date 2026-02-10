@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SectionHeading } from '@/components/SectionHeading';
-import { allPosts } from '@/lib/posts';
+import { allPosts, formatPostDate } from '@/lib/posts';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -30,11 +30,12 @@ export default function BlogPage() {
                 alt={post.title}
                 width={640}
                 height={420}
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="h-52 w-full object-cover"
               />
               <div className="space-y-4 p-6">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-white/50">
-                  <span>{new Date(post.date).toLocaleDateString('pt-BR')}</span>
+                  <span>{formatPostDate(post.date)}</span>
                   <span>{post.readTime} leitura</span>
                 </div>
                 <h2 className="font-heading text-2xl text-bone">{post.title}</h2>

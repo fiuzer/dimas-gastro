@@ -71,6 +71,7 @@ export default function HomePage() {
                   alt="Consultor gastronômico em ambiente profissional"
                   width={520}
                   height={680}
+                  sizes="(min-width: 1024px) 40vw, 100vw"
                   className="h-full w-full rounded-[22px] object-cover"
                   priority
                 />
@@ -198,7 +199,7 @@ export default function HomePage() {
                 href="/contato"
                 className="focus-ring mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-copper"
               >
-                Agendar diagnóstico
+                Agendar consultoria
                 <Icon name="ArrowRight" className="h-4 w-4" />
               </Link>
             </div>

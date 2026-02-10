@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SectionHeading } from '@/components/SectionHeading';
 import { siteConfig } from '@/lib/site';
+import { submitContact } from '@/app/contato/actions';
 
 export const metadata: Metadata = {
   title: 'Contato',
@@ -9,7 +10,14 @@ export const metadata: Metadata = {
     'Solicite uma proposta de consultoria gastronômica e receba um plano personalizado para o seu negócio.'
 };
 
-export default function ContatoPage() {
+type ContatoPageProps = {
+  searchParams?: { enviado?: string; erro?: string };
+};
+
+export default function ContatoPage({ searchParams }: ContatoPageProps) {
+  const sent = searchParams?.enviado === '1';
+  const error = searchParams?.erro === '1';
+
   return (
     <div>
       <section className="section-pad mx-auto max-w-5xl">
@@ -19,12 +27,23 @@ export default function ContatoPage() {
           title="Vamos transformar sua operação gastronômica"
           description="Preencha o formulário e receba um diagnóstico inicial."
         />
+        {(sent || error) && (
+          <div
+            className={`mt-6 rounded-2xl border px-5 py-4 text-sm ${
+              sent
+                ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-200'
+                : 'border-amber-500/40 bg-amber-500/10 text-amber-200'
+            }`}
+          >
+            {sent
+              ? 'Recebemos sua solicitação. Em até 24h úteis retornamos com os próximos passos.'
+              : 'Faltaram dados obrigatórios. Revise os campos e tente novamente.'}
+          </div>
+        )}
         <div className="mt-10 grid gap-8 md:grid-cols-[1.2fr_0.8fr]">
           <form
             className="glass space-y-4 rounded-2xl p-6"
-            action={`mailto:${siteConfig.email}`}
-            method="post"
-            encType="text/plain"
+            action={submitContact}
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="text-xs uppercase tracking-[0.2em] text-white/60">
@@ -40,6 +59,8 @@ export default function ContatoPage() {
                 <input
                   name="whatsapp"
                   required
+                  type="tel"
+                  inputMode="tel"
                   className="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white focus-ring"
                 />
               </label>
@@ -57,7 +78,7 @@ export default function ContatoPage() {
               Tipo de negócio
               <select
                 name="tipo"
-                className="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white focus-ring"
+                className="select-dark mt-2 w-full rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-bone focus-ring"
                 defaultValue=""
                 required
               >
@@ -103,7 +124,7 @@ export default function ContatoPage() {
                   href="/contato"
                   className="focus-ring rounded-full bg-white/10 px-5 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-bone"
                 >
-                  Agendar reunião online
+                  Agendar consultoria
                 </Link>
               </div>
             </div>

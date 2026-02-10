@@ -1,6 +1,7 @@
-import { getPost, postSlugs } from '@/lib/posts';
+import { formatPostDate, getPost, postSlugs } from '@/lib/posts';
 import { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 // Gera os parâmetros estáticos para todas as postagens (SSG)
@@ -52,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Cabeçalho do Post */}
         <div className="mb-10 space-y-6 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-copper">
-            {post.readTime} de leitura
+            {formatPostDate(post.date)} · {post.readTime} de leitura
           </div>
           <h1 className="font-heading text-3xl text-bone md:text-5xl">{post.title}</h1>
           <p className="text-lg text-white/60">{post.description}</p>
@@ -64,6 +65,7 @@ export default async function BlogPostPage({ params }: Props) {
             src={post.cover}
             alt={post.title}
             fill
+            sizes="(min-width: 768px) 60vw, 100vw"
             className="object-cover"
             priority
           />
@@ -88,6 +90,19 @@ export default async function BlogPostPage({ params }: Props) {
               </span>
             ))}
           </div>
+        </div>
+
+        <div className="mt-12 glass rounded-2xl p-6 text-center">
+          <p className="text-xs uppercase tracking-[0.3em] text-copper/80">Pronto para agir?</p>
+          <p className="mt-3 text-lg text-bone">
+            Agende uma consultoria e receba um plano prático para melhorar margem e operação.
+          </p>
+          <Link
+            href="/contato"
+            className="focus-ring mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-copper"
+          >
+            Agendar consultoria
+          </Link>
         </div>
       </div>
     </div>

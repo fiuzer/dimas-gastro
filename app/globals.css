@@ -66,6 +66,11 @@ body {
   outline-offset: 2px;
 }
 
+.select-dark option {
+  background-color: #2a2a2a;
+  color: #f7f5f1;
+}
+
 @keyframes floatUp {
   0% {
     opacity: 0;

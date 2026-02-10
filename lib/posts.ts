@@ -9,6 +9,11 @@ export type Post = {
   keywords: string[];
 };
 
+export const formatPostDate = (date: string) =>
+  new Date(`${date}T00:00:00Z`).toLocaleDateString('pt-BR', {
+    timeZone: 'UTC'
+  });
+
 const posts: Post[] = [
   {
     slug: 'como-melhorar-cardapio-restaurante',

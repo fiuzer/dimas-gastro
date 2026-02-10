@@ -27,6 +27,7 @@ export default function PortfolioPage() {
                 alt={item.title}
                 width={480}
                 height={320}
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 className="h-52 w-full object-cover"
               />
               <div className="flex h-full flex-col gap-4 p-6">
@@ -42,6 +43,13 @@ export default function PortfolioPage() {
                   <br />
                   {item.result}
                 </p>
+                <div className="flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.2em] text-copper/70">
+                  {item.metrics.map((metric) => (
+                    <span key={metric} className="rounded-full border border-copper/30 px-3 py-1">
+                      {metric}
+                    </span>
+                  ))}
+                </div>
               </div>
             </article>
           ))}
