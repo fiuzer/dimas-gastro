@@ -1,4 +1,11 @@
-export const services = [
+import { IconName } from '@/components/Icon';
+
+export const services: {
+  title: string;
+  description: string;
+  benefit: string;
+  icon: IconName;
+}[] = [
   {
     title: 'Consultoria para restaurantes',
     description:
@@ -50,7 +57,7 @@ export const services = [
   }
 ];
 
-export const helpTopics = [
+export const helpTopics: { title: string; icon: IconName }[] = [
   { title: 'Desenvolvimento de Cardápio', icon: 'Menu' },
   { title: 'Estruturação de Cozinha', icon: 'Utensils' },
   { title: 'Treinamento de Equipe', icon: 'Users' },

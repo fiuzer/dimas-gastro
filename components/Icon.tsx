@@ -1,6 +1,6 @@
 import React from 'react';
 
-type IconName =
+export type IconName =
   | 'ChefHat'
   | 'Menu'
   | 'Compass'
@@ -11,7 +11,8 @@ type IconName =
   | 'Utensils'
   | 'ClipboardCheck'
   | 'ArrowRight'
-  | 'Check';
+  | 'Check'
+  | 'X';
 
 type IconProps = {
   name: IconName;
@@ -51,6 +52,9 @@ const paths: Record<IconName, React.ReactNode> = {
   ),
   Check: (
     <path d="m5 12 4 4 10-10" />
+  ),
+  X: (
+    <path d="M6 6l12 12M18 6 6 18" />
   )
 };
 
