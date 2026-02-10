@@ -17,8 +17,8 @@ export default function SobrePage() {
           <div className="absolute -inset-4 rounded-[32px] bg-gradient-to-br from-copper/30 via-transparent to-transparent blur-2xl" />
           <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-black/40 shadow-soft">
             <Image
-              src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=800&q=80"
-              alt="Consultor gastronômico em cozinha profissional"
+              src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80"
+              alt="Profissional cozinhando em cozinha profissional"
               width={520}
               height={640}
               className="h-full w-full object-cover"
